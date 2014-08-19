@@ -33,19 +33,19 @@ python_path = os.path.join(env_path, "Scripts" if os.name == "nt" else "bin", "p
 
 if run_tests:
     pytest_path = os.path.join(env_path, "Scripts" if os.name == "nt" else "bin", "py.test.exe" if os.name == "nt" else "py.test")
-    counterpartyd_tests_path = os.path.join(dist_path, "counterpartyd", "test", "test_.py")
+    counterpartyd_tests_path = os.path.join(dist_path, "dogepartyd", "test", "test_.py")
     command = "%s %s %s" % (pytest_path, counterpartyd_tests_path, ' '.join(args))
 elif run_counterblockd:
     counterblockd_env_path = os.path.join(base_path, "env.counterblockd")
     counterblockd_python_path = os.path.join(counterblockd_env_path, "Scripts" if os.name == "nt" else "bin", "python.exe" if os.name == "nt" else "python")
-    counterblockd_path = os.path.join(dist_path, "counterblockd", "counterblockd.py")
+    counterblockd_path = os.path.join(dist_path, "dogeblockd", "counterblockd.py")
     command = "%s %s %s" % (counterblockd_python_path, counterblockd_path, ' '.join(args))
 elif run_armory_utxsvr:
     armory_utxsvr_env_path = os.path.join(base_path, "env.counterblockd") #use the counterblock venv
     armory_utxsvr_python_path = os.path.join(armory_utxsvr_env_path, "Scripts" if os.name == "nt" else "bin", "python.exe" if os.name == "nt" else "python")
-    armory_utxsvr_path = os.path.join(dist_path, "counterblockd", "armory_utxsvr.py")
+    armory_utxsvr_path = os.path.join(dist_path, "dogeblockd", "armory_utxsvr.py")
     command = "DISPLAY=localhost:1.0 xvfb-run --auto-servernum %s %s %s" % (armory_utxsvr_python_path, armory_utxsvr_path, ' '.join(args))
 else: #run counterpartyd
-    counterpartyd_path = os.path.join(dist_path, "counterpartyd", "counterpartyd.py")
+    counterpartyd_path = os.path.join(dist_path, "dogepartyd", "counterpartyd.py")
     command = "%s %s %s" % (python_path, counterpartyd_path, ' '.join(args))
 os.system(command)

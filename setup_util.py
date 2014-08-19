@@ -57,20 +57,20 @@ def modify_config(param_re, content_to_add, filenames, replace_if_exists=True, d
         f.write(content)
         f.close()
 
-def modify_cp_config(param_re, content_to_add, replace_if_exists=True, config='counterpartyd', net='both', for_user='xcp'):
-    assert config in ('counterpartyd', 'counterblockd', 'both')
+def modify_cp_config(param_re, content_to_add, replace_if_exists=True, config='dogepartyd', net='both', for_user='xcp'):
+    assert config in ('dogepartyd', 'dogeblockd', 'both')
     assert net in ('mainnet', 'testnet', 'both')
     cfg_filenames = []
-    if config in ('counterpartyd', 'both'):
+    if config in ('dogepartyd', 'both'):
         if net in ('mainnet', 'both'):
-            cfg_filenames.append(os.path.join(os.path.expanduser('~'+for_user), ".config", "counterpartyd", "counterpartyd.conf"))
+            cfg_filenames.append(os.path.join(os.path.expanduser('~'+for_user), ".config", "dogepartyd", "counterpartyd.conf"))
         if net in ('testnet', 'both'):
-            cfg_filenames.append(os.path.join(os.path.expanduser('~'+for_user), ".config", "counterpartyd-testnet", "counterpartyd.conf"))
-    if config in ('counterblockd', 'both'):
+            cfg_filenames.append(os.path.join(os.path.expanduser('~'+for_user), ".config", "dogepartyd-testnet", "counterpartyd.conf"))
+    if config in ('dogeblockd', 'both'):
         if net in ('mainnet', 'both'):
-            cfg_filenames.append(os.path.join(os.path.expanduser('~'+for_user), ".config", "counterblockd", "counterblockd.conf"))
+            cfg_filenames.append(os.path.join(os.path.expanduser('~'+for_user), ".config", "dogeblockd", "counterblockd.conf"))
         if net in ('testnet', 'both'):
-            cfg_filenames.append(os.path.join(os.path.expanduser('~'+for_user), ".config", "counterblockd-testnet", "counterblockd.conf"))
+            cfg_filenames.append(os.path.join(os.path.expanduser('~'+for_user), ".config", "dogeblockd-testnet", "counterblockd.conf"))
         
     modify_config(param_re, content_to_add, cfg_filenames, replace_if_exists=replace_if_exists)
 

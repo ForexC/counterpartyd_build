@@ -28,13 +28,13 @@ except ImportError:
 from setup_util import *
 
 PYTHON3_VER = None
-DEFAULT_CONFIG = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=8332\nbackend-rpc-user=rpc\nbackend-rpc-password=1234\nrpc-host=localhost\nrpc-port=4000\nrpc-user=rpc\nrpc-password=xcppw1234"
-DEFAULT_CONFIG_TESTNET = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=18332\nbackend-rpc-user=rpc\nbackend-rpc-password=1234\nrpc-host=localhost\nrpc-port=14000\nrpc-user=rpc\nrpc-password=xcppw1234\ntestnet=1"
+DEFAULT_CONFIG = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=22555\nbackend-rpc-user=dogecoinrpc\nbackend-rpc-password=1234\nrpc-host=localhost\nrpc-port=5000\nrpc-user=rpc\nrpc-password=xcppw1234"
+DEFAULT_CONFIG_TESTNET = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=44555\nbackend-rpc-user=dogecoinrpc\nbackend-rpc-password=1234\nrpc-host=localhost\nrpc-port=15000\nrpc-user=rpc\nrpc-password=xcppw1234\ntestnet=1"
 DEFAULT_CONFIG_INSTALLER = "[Default]\nbackend-rpc-connect=BITCOIND_RPC_CONNECT\nbackend-rpc-port=BITCOIND_RPC_PORT\nbackend-rpc-user=BITCOIND_RPC_USER\nbackend-rpc-password=BITCOIND_RPC_PASSWORD\nrpc-host=RPC_HOST\nrpc-port=RPC_PORT\nrpc-user=RPC_USER\nrpc-password=RPC_PASSWORD"
 
-DEFAULT_CONFIG_COUNTERBLOCKD = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=8332\nbackend-rpc-user=rpc\nbackend-rpc-password=rpcpw1234\ncounterpartyd-rpc-host=localhost\ncounterpartyd-rpc-port=4000\ncounterpartyd-rpc-user=rpc\ncounterpartyd-rpc-password=xcppw1234\nrpc-host=0.0.0.0\nsocketio-host=0.0.0.0\nsocketio-chat-host=0.0.0.0\nredis-enable-apicache=0"
-DEFAULT_CONFIG_COUNTERBLOCKD_TESTNET = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=18332\nbackend-rpc-user=rpc\nbackend-rpc-password=1234\ncounterpartyd-rpc-host=localhost\ncounterpartyd-rpc-port=14000\ncounterpartyd-rpc-user=rpc\ncounterpartyd-rpc-password=xcppw1234\nrpc-host=0.0.0.0\nsocketio-host=0.0.0.0\nsocketio-chat-host=0.0.0.0\nredis-enable-apicache=0\ntestnet=1"
-DEFAULT_CONFIG_INSTALLER_COUNTERBLOCKD = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=8332\nbackend-rpc-user=rpc\nbackend-rpc-password=1234\ncounterpartyd-rpc-host=RPC_HOST\ncounterpartyd-rpc-port=RPC_PORT\ncounterpartyd-rpc-user=RPC_USER\ncounterpartyd-rpc-password=RPC_PASSWORD"
+DEFAULT_CONFIG_COUNTERBLOCKD = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=22555\nbackend-rpc-user=dogecoinrpc\nbackend-rpc-password=rpcpw1234\ncounterpartyd-rpc-host=localhost\ncounterpartyd-rpc-port=5000\ncounterpartyd-rpc-user=rpc\ncounterpartyd-rpc-password=xcppw1234\nrpc-host=0.0.0.0\nsocketio-host=0.0.0.0\nsocketio-chat-host=0.0.0.0\nredis-enable-apicache=0"
+DEFAULT_CONFIG_COUNTERBLOCKD_TESTNET = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=44555\nbackend-rpc-user=dogecoinrpc\nbackend-rpc-password=1234\ncounterpartyd-rpc-host=localhost\ncounterpartyd-rpc-port=15000\ncounterpartyd-rpc-user=rpc\ncounterpartyd-rpc-password=xcppw1234\nrpc-host=0.0.0.0\nsocketio-host=0.0.0.0\nsocketio-chat-host=0.0.0.0\nredis-enable-apicache=0\ntestnet=1"
+DEFAULT_CONFIG_INSTALLER_COUNTERBLOCKD = "[Default]\nbackend-rpc-connect=localhost\nbackend-rpc-port=22555\nbackend-rpc-user=rpc\nbackend-rpc-password=1234\ncounterpartyd-rpc-host=RPC_HOST\ncounterpartyd-rpc-port=RPC_PORT\ncounterpartyd-rpc-user=RPC_USER\ncounterpartyd-rpc-password=RPC_PASSWORD"
 
 def _get_app_cfg_paths(appname, run_as_user):
     import appdirs #installed earlier
@@ -123,18 +123,18 @@ def get_paths(with_counterblockd):
     return paths
 
 def checkout(branch, paths, run_as_user, with_counterblockd, is_update):
-    git_repo_clone("counterpartyd", "https://github.com/CounterpartyXCP/counterpartyd.git",
-        os.path.join(paths['dist_path'], "counterpartyd"), branch=branch, for_user=run_as_user)    
+    git_repo_clone("counterpartyd", "https://github.com/Dogeparty/dogepartyd.git",
+        os.path.join(paths['dist_path'], "dogepartyd"), branch=branch, for_user=run_as_user)    
     
     if with_counterblockd:
-        git_repo_clone("counterblockd", "https://github.com/CounterpartyXCP/counterblockd.git",
-            os.path.join(paths['dist_path'], "counterblockd"), branch=branch, for_user=run_as_user)    
+        git_repo_clone("counterblockd", "https://github.com/Dogeparty/dogeblockd.git",
+            os.path.join(paths['dist_path'], "dogeblockd"), branch=branch, for_user=run_as_user)    
 
     if is_update: #update mode specified... update ourselves (counterpartyd_build) as well
         git_repo_clone("counterpartyd_build", "https://github.com/CounterpartyXCP/counterpartyd_build.git",
             paths['base_path'], branch=branch, for_user=run_as_user)
     
-    sys.path.insert(0, os.path.join(paths['dist_path'], "counterpartyd")) #can now import counterparty modules
+    sys.path.insert(0, os.path.join(paths['dist_path'], "dogepartyd")) #can now import counterparty modules
 
 def install_dependencies(paths, with_counterblockd, noninteractive):
     if os.name == "posix" and platform.dist()[0] == "Ubuntu":
@@ -254,12 +254,12 @@ def create_virtualenv(paths, with_counterblockd):
         runcmd("%s install -r %s" % (pip_path, os.path.join(paths['dist_path'], reqs_filename)))
 
     create_venv(paths['env_path'], paths['pip_path'], paths['python_path'], paths['virtualenv_args'],
-        os.path.join(paths['dist_path'], "counterpartyd", "pip-requirements.txt")) 
+        os.path.join(paths['dist_path'], "dogepartyd", "pip-requirements.txt")) 
     if with_counterblockd: #as counterblockd uses python 2.x, it needs its own virtualenv
         runcmd("rm -rf %s && mkdir -p %s" % (paths['env_path.counterblockd'], paths['env_path.counterblockd']))
         create_venv(paths['env_path.counterblockd'], paths['pip_path.counterblockd'], paths['python_path.counterblockd'],
             paths['virtualenv_args.counterblockd'],
-            os.path.join(paths['dist_path'], "counterblockd", "pip-requirements.txt"), delete_if_exists=False)    
+            os.path.join(paths['dist_path'], "dogeblockd", "pip-requirements.txt"), delete_if_exists=False)    
 
 def setup_startup(paths, run_as_user, with_counterblockd, with_testnet, noninteractive):
     if os.name == "posix":
